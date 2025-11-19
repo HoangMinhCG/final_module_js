@@ -1,7 +1,6 @@
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Blog from "./pages/Blog";
 
 // ở đây cũng tương tự mọi người cũng khai báo async func để xử lý
 
@@ -9,9 +8,8 @@ import Blog from "./pages/Blog";
 
 async function app() {
     return `
-            ${Header()}
-            ${Home()}
-            ${await Blog()} 
+            ${await Header()}
+            <main id="js-body"></main>
             ${Footer()}
 `;
 }
