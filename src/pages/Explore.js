@@ -1,7 +1,9 @@
 function Explore() {
-    return `
+  return `
         <div class="dark:text-white ml-[250px]">
             trang khám phá
+
+           
         </div>
     `;
 }
