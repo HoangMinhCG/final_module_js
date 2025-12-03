@@ -17,12 +17,18 @@ function SideBar() {
                 </a>
             </div>
 
-            <div>
-                <a class="dark:text-white" href="/">trang chủ</a>
-                <a class="dark:text-white" href="/explore">khám phá</a>
-                <a class="dark:text-white" href="/library">thư viện</a>
-                <a class="dark:text-white" href="/channel/${randomSlug}">đến trang channel</a>
+            <div class="block">
+                <a class="dark:text-white block text-lg font-medium mb-[15px] hover:bg-[#353535] py-2.5 px-5 rounded-[10px] w-[90%] mx-auto" href="/">Trang chủ</a>
+                <a class="dark:text-white block text-lg font-medium mb-[15px] hover:bg-[#353535] py-2.5 px-5 rounded-[10px] w-[90%] mx-auto" href="/explore">Khám phá</a>
+                <a class="dark:text-white block text-lg font-medium mb-[15px] hover:bg-[#353535] py-2.5 px-5 rounded-[10px] w-[90%] mx-auto" href="/library">Thư viện</a>
+                <a class="dark:text-white block text-lg font-medium mb-[15px] hover:bg-[#353535] py-2.5 px-5 rounded-[10px] w-[90%] mx-auto" href="/channel/${randomSlug}">Nâng cấp</a>
             </div>
+
+            <button class="text-[16px] flex items-center justify-center w-[80%] cursor-pointer mx-auto hover:bg-[rgba(255,255,255,0.2)] hover:text-white dark:bg-white h-[32px] px-4 py-5 rounded-full text-[14px] font-medium">
+            Đăng nhập
+          </button>
+
+          <p class="dark:text-white w-[80%] mt-[16px] mx-auto text-[12px]">Đăng nhập để tạo và chia sẻ danh sách phát, nhận nội dung đề xuất dành riêng cho bạn và hơn thế nữa.</p>
         </div>
     `;
 }

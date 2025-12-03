@@ -34,7 +34,7 @@ async function Header() {
             <i class="fa-solid fa-ellipsis-vertical dark:text-white text-[18px]"></i>
           </button>
 
-          <button class="cursor-pointer dark:bg-white h-[32px] px-4 rounded-full text-[14px] font-medium">
+          <button class="cursor-pointer hover:bg-[rgba(255,255,255,0.2)] hover:text-white dark:bg-white h-[32px] px-4 rounded-full text-[14px] font-medium">
             Đăng nhập
           </button>
         </div>
