@@ -31,6 +31,17 @@ const handleAudio = async () => {
 
   const play = document.querySelector(".fa-play");
   const pause = document.querySelector(".fa-pause");
+  const mute = document.querySelector(".fa-volume-high");
+  const cur = document.querySelector("#current");
+  const dur = document.querySelector("#duration");
+
+  audio.addEventListener("loadedmetadata", () => {
+    dur.textContent = formatTime(audio.duration);
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    cur.textContent = formatTime(audio.currentTime);
+  });
 
   play.addEventListener("click", () => {
     audio.play();
@@ -38,6 +49,10 @@ const handleAudio = async () => {
 
   pause.addEventListener("click", () => {
     audio.pause();
+  });
+
+  mute.addEventListener("click", () => {
+    audio.muted = !audio.muted;
   });
 };
 
@@ -56,6 +71,8 @@ function Footer() {
         <i class="fa-solid fa-play hover:cursor-pointer hover:bg-[#ddd] hover:rounded-full p-1.5"></i>
         <i class="fa-solid fa-pause hover:cursor-pointer hover:bg-[#ddd] hover:rounded-full p-1.5 hidden"></i>
         <i class="fa-solid fa-forward-step hover:cursor-pointer hover:bg-[#ddd] hover:rounded-full p-1.5"></i>
+        <span id="current">0:00</span> 
+        <span id="duration">0:00</span>
       </div>
 
       <div>

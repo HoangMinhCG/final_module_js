@@ -1,13 +1,33 @@
 import PlaylistTags from "../components/PlaylistTags";
 import musicList from "../components/Quickblabla";
-import {musicListCol} from "../components/Quickblabla";
+import { musicListCol } from "../components/Quickblabla";
 import albumService from "../service/albumService";
 import authSevice from "../service/authSevice";
 import homeService from "../service/homeService";
+import songdetail from "../service/songdetail";
+import { getDetailAlbum } from "../service/albumService";
+
+async function clickToPlayMusic() {
+  const slug = document.querySelector("#listMusic");
+  const audio = document.querySelector("#audio");
+
+  slug.addEventListener("click", async function (e) {
+    const a = await getDetailAlbum(e.target.parentElement.dataset.slug);
+    console.log(a.data.tracks[0].audioUrl);
+    audio.src = a.data.tracks[0].audioUrl;
+
+    audio.play();
+  });
+}
+let tracks;
+// clickToPlayMusic()
+console.log(tracks);
 
 async function Home() {
   const moods = await homeService.getMoods();
   const albums = await albumService.getAlbum();
+  const songs = await songdetail.getSong();
+  // console.log(songs);
 
   return `
     <div class="container mx-auto ">
@@ -41,15 +61,11 @@ async function Home() {
       <div class="flex ml-[240px] gap-2 w-[1290px] overflow-auto">
         ${albums
           .map((el) => {
-            return musicList(
-              el.thumbnails[0],
-              el.title,
-              el.artists[0]
-
-            );
+            return musicList(el.slug, el.thumbnails[0], el.title, el.artists[0]);
           })
           .join("")}
-         <audio src"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" controls></audio>
+
+         
       </div>
 
 
@@ -68,19 +84,19 @@ async function Home() {
           </div>
         </div>
       </div>
-      <div class="flex flex-wrap ml-[240px] gap-2 w-[1290px] max-h-[300px]  overflow-auto overflow-y-auto overflow-x-auto ">
+      <div id="listMusic" data-slug="" class="flex flex-wrap ml-[240px] gap-2 w-[1290px] max-h-[300px]  overflow-auto overflow-y-auto overflow-x-auto ">
         ${albums
           .map((el) => {
-            for(let i=1; i<=4; i++){
+            for (let i = 1; i <= 4; i++) {
               return musicListCol(
-              el.thumbnails[0],
-              el.title,
-              el.artists[0]
-            );
+                el.slug,
+                el.thumbnails[0],
+                el.title,
+                el.artists[0]
+              );
             }
           })
           .join("")}
-         <audio src"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" controls></audio>
       </div>
 
 
@@ -99,15 +115,9 @@ async function Home() {
       <div class="flex ml-[240px] gap-2 w-[1290px] overflow-auto">
         ${albums
           .map((el) => {
-            return musicList(
-              el.thumbnails[0],
-              el.title,
-              el.artists[0]
-
-            );
+            return musicList(el.slug, el.thumbnails[0], el.title, el.artists[0]);
           })
-          .join("")}
-         <audio src"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" controls></audio>
+          .join("")}         
       </div>
       
 
@@ -116,3 +126,4 @@ async function Home() {
 }
 
 export default Home;
+export { clickToPlayMusic };
