@@ -23,6 +23,9 @@ async function catchEvent() {
 
   tienDo.addEventListener("mouseup", function (e) {
     tienDo.removeEventListener("mousemove", handle);
+    const width = tienDo.clientWidth;
+    const clickX = e.offsetX;
+    audio.currentTime = (clickX / width) * audio.duration;
   });
 }
 
@@ -36,11 +39,22 @@ const handleAudio = async () => {
   const dur = document.querySelector("#duration");
 
   audio.addEventListener("loadedmetadata", () => {
-    dur.textContent = formatTime(audio.duration);
+    // console.log("Tổng thời gian:", audio.duration);
+    const duration = audio.duration;
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    dur.innerHTML = `${minutes}:${seconds}`;
   });
 
+  // audio.addEventListener("loadedmetadata", () => {
+  //   dur.textContent = formatTime(audio.duration);
+  // });
+
   audio.addEventListener("timeupdate", () => {
-    cur.textContent = formatTime(audio.currentTime);
+    const current = audio.currentTime;
+    const minutes = Math.floor(current / 60);
+    const seconds = Math.floor(current % 60);
+    cur.innerHTML = `${minutes}:${seconds}`;
   });
 
   play.addEventListener("click", () => {
@@ -60,8 +74,8 @@ function Footer() {
   return `
     <div class="fixed left-0 right-0 bottom-0 bg-neutral-900 text-black text-[24px] h-[60px] w-[100%] bg-white flex items-center justify-between">
       <div id="tiendo">
-        <div  class="bg-[red] w-[100%] h-[5px] absolute top-0"></div>
-      <div  class="js-progess bg-[green]  h-[5px] absolute top-0 left-0"></div>
+        <div  class="bg-[#383838] w-[100%] h-[6px] absolute top-0"></div>
+      <div  class="js-progess bg-[red]  h-[6px] absolute top-0 left-0"></div>
 
       <audio id="audio" src="${msCPTDSDDT}"></audio>
 

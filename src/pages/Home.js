@@ -1,6 +1,6 @@
 import PlaylistTags from "../components/PlaylistTags";
-import musicList from "../components/Quickblabla";
-import { musicListCol } from "../components/Quickblabla";
+// import musicList from "../components/Quickblabla";
+import { musicListCol, musicList } from "../components/Quickblabla";
 import albumService from "../service/albumService";
 import authSevice from "../service/authSevice";
 import homeService from "../service/homeService";
@@ -9,13 +9,28 @@ import { getDetailAlbum } from "../service/albumService";
 
 async function clickToPlayMusic() {
   const slug = document.querySelector("#listMusic");
+  const slug2 = document.querySelector("#listMusic2");
+  const slug3 = document.querySelector("#listMusic3");
   const audio = document.querySelector("#audio");
 
   slug.addEventListener("click", async function (e) {
     const a = await getDetailAlbum(e.target.parentElement.dataset.slug);
     console.log(a.data.tracks[0].audioUrl);
-    audio.src = a.data.tracks[0].audioUrl;
+    audio.src = a.data.tracks[3].audioUrl;
+    audio.play();
+  });
 
+  slug2.addEventListener("click", async function (e) {
+    const a = await getDetailAlbum(e.target.parentElement.dataset.slug);
+    console.log(a.data.tracks[0].audioUrl);
+    audio.src = a.data.tracks[3].audioUrl;
+    audio.play();
+  });
+
+  slug3.addEventListener("click", async function (e) {
+    const a = await getDetailAlbum(e.target.parentElement.dataset.slug);
+    console.log(a.data.tracks[0].audioUrl);
+    audio.src = a.data.tracks[3].audioUrl;
     audio.play();
   });
 }
@@ -58,10 +73,15 @@ async function Home() {
           </div>
         </div>
       </div>
-      <div class="flex ml-[240px] gap-2 w-[1290px] overflow-auto">
+      <div id="listMusic" data-slug="" class="listMusic flex ml-[240px] gap-2 w-[1290px] overflow-auto">
         ${albums
           .map((el) => {
-            return musicList(el.slug, el.thumbnails[0], el.title, el.artists[0]);
+            return musicList(
+              el.slug,
+              el.thumbnails[0],
+              el.title,
+              el.artists[0]
+            );
           })
           .join("")}
 
@@ -84,17 +104,17 @@ async function Home() {
           </div>
         </div>
       </div>
-      <div id="listMusic" data-slug="" class="flex flex-wrap ml-[240px] gap-2 w-[1290px] max-h-[300px]  overflow-auto overflow-y-auto overflow-x-auto ">
+      <div id="listMusic2" data-slug="" class="listMusic flex flex-wrap ml-[240px] gap-2 w-[1290px] max-h-[300px]  overflow-auto overflow-y-auto overflow-x-auto ">
         ${albums
           .map((el) => {
-            for (let i = 1; i <= 4; i++) {
+            
               return musicListCol(
                 el.slug,
                 el.thumbnails[0],
                 el.title,
                 el.artists[0]
               );
-            }
+            
           })
           .join("")}
       </div>
@@ -112,14 +132,18 @@ async function Home() {
           </div>
         </div>
       </div>
-      <div class="flex ml-[240px] gap-2 w-[1290px] overflow-auto">
+      <div id="listMusic3" data-slug="" class="listMusic flex ml-[240px] gap-2 w-[1290px] overflow-auto">
         ${albums
           .map((el) => {
-            return musicList(el.slug, el.thumbnails[0], el.title, el.artists[0]);
+            return musicList(
+              el.slug,
+              el.thumbnails[0],
+              el.title,
+              el.artists[0]
+            );
           })
           .join("")}         
-      </div>
-      
+      </div>    
 
     </div>
     `;
