@@ -2,6 +2,7 @@ import msCPTDSDDT from "../assets/musics/cptdsddt.mp3";
 
 async function catchEvent() {
   let x;
+  const audio = document.querySelector("#audio");
   const tienDo = document.querySelector("#tiendo");
   // tienDo.addEventListener("click", function (e) {
   //   // Lấy tọa độ theo cửa sổ trình duyệt
@@ -18,6 +19,7 @@ async function catchEvent() {
 
   tienDo.addEventListener("mousedown", function (e) {
     // console.log(e.clientX);
+    isDragging = true;
     tienDo.addEventListener("mousemove", handle);
   });
 
@@ -26,17 +28,38 @@ async function catchEvent() {
     const width = tienDo.clientWidth;
     const clickX = e.offsetX;
     audio.currentTime = (clickX / width) * audio.duration;
+    isDragging = false;
   });
 }
-
+let isDragging = false;
 const handleAudio = async () => {
   const audio = document.querySelector("#audio");
-
+  const tienDo = document.querySelector("#tiendo");
   const play = document.querySelector(".fa-play");
   const pause = document.querySelector(".fa-pause");
   const mute = document.querySelector(".fa-volume-high");
   const cur = document.querySelector("#current");
   const dur = document.querySelector("#duration");
+  const progress = document.querySelector(".js-progess");
+
+  // thanh tiến độ chạy dựa theo thời gian currentTime
+  audio.addEventListener("timeupdate", () => {
+      if (!isDragging) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${percent}%`;
+    }});
+  
+
+  //tua khi click
+  tienDo.addEventListener("click", (e) => {
+    const width = tienDo.clientWidth;
+    const x = e.offsetX;
+    // const percent = (audio.currentTime / audio.duration) * 100;
+    //   progress.style.width = `${percent}%`;
+
+    audio.currentTime = (x / width) * audio.duration;
+    // audio.currentTime = (percent * audio.duration) / 100;
+  });
 
   audio.addEventListener("loadedmetadata", () => {
     // console.log("Tổng thời gian:", audio.duration);
@@ -45,10 +68,6 @@ const handleAudio = async () => {
     const seconds = Math.floor(duration % 60);
     dur.innerHTML = `${minutes}:${seconds}`;
   });
-
-  // audio.addEventListener("loadedmetadata", () => {
-  //   dur.textContent = formatTime(audio.duration);
-  // });
 
   audio.addEventListener("timeupdate", () => {
     const current = audio.currentTime;
